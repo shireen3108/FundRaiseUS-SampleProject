@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fundraisers{% endblock title %}
+{% block content %}
+{% if user.is_authenticated %}
+        <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"> </a>
+
+        <form class="mx-2 my-auto d-inline w-100" method="get" action="{% url 'customer:fundraiserslist_search' %}">
+            <div class="input-group">
+                <input class="form-control border border-right-0" name="fundraiser_search" type="search" placeholder="Search @ Fundraisers available to donate"
+                       aria-label="Search">
+                <span class="input-group-append">
+                    <button class="btn btn-outline-secondary border border-left-0" type="submit">
+                        Search
+                    </button>
+                </span>
+            </div>
+        </form>
+    </nav>
+    {% endif %}
+    {% if  fundraiserList %}
+
+    {% for Fundraiser in fundraiserList %}
+
+        <div class="card mb-3 mt-3">
+            <div class="row no-gutters">
+                {% if Fundraiser.image %}
+                    <img id="imgofcard" src="{{ Fundraiser.image.url }}" alt="Fundraiser Image">
+                {% else %}
+                    <img id="imgofcard" src='{% static "images/Fundraiser_Logo.png" %}'
+                         alt="Fundraiser Image">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-text">{{ Fundraiser.name }} <small>({{ Fundraiser.cause_type }})</small></h4>
+
+                    <p class="card-text">${{ Fundraiser.goal }}</p>
+                    {% for funds,total in overallfunds_donated.items %}
+
+                        {% if funds.id == Fundraiser.id %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped " role="progressbar"
+                                     aria-valuenow="bar" style="width:{{ total.1 }}%">
+
+                                </div>
+
+                            </div>
+                             <span style="font-weight:bold; justify-content: center">${{ total.0 }} out of ${{ Fundraiser.goal }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    <p class="card-text">{{ Fundraiser.description }}</p>
+                    <a class="btn btn-info" href="{% url 'customer:customer_donate' Fundraiser.id %}">Donate</a>
+                </div>
+            </div>
+        </div>
+
+
+    {% endfor %}
+    {% endif %}
+      {% if  fundraiserListSearched %}
+ <a class="btn btn-sm btn-light mt-2 float-right" href="{% url 'customer:fundraiserslist' %}">Clear Search</a><br>
+         {% if  searchString %}<h6> Your Search:  '{{ searchString }}' </h6> {% endif %}
+    {% for Fundraiser in fundraiserListSearched %}
+
+        <div class="card mb-3 mt-3">
+            <div class="row no-gutters">
+                {% if Fundraiser.image %}
+                    <img id="imgofcard" src="{{ Fundraiser.image.url }}" alt="Fundraiser Image">
+                {% else %}
+                    <img id="imgofcard" src='{% static "images/Fundraiser_Logo.png" %}'
+                         alt="Fundraiser Image">
+                {% endif %}
+                <div class="card-body">
+                    <h4 class="card-text">{{ Fundraiser.name }} <small>({{ Fundraiser.cause_type }})</small></h4>
+
+                    <p class="card-text">${{ Fundraiser.goal }}</p>
+                    {% for funds,total in overallfunds_donated_searched.items %}
+
+                        {% if funds.id == Fundraiser.id %}
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped " role="progressbar"
+                                     aria-valuenow="bar" style="width:{{ total.1 }}%">
+
+                                </div>
+
+                            </div>
+                             <span style="font-weight:bold; justify-content: center">${{ total.0 }} out of ${{ Fundraiser.goal }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    <p class="card-text">{{ Fundraiser.description }}</p>
+                    <a class="btn btn-info" href="{% url 'customer:customer_donate' Fundraiser.id %}">Donate</a>
+                </div>
+            </div>
+        </div>
+
+
+    {% endfor %}
+    {% endif %}
+    {% if not user.is_authenticated %}
+        <p id="viewmore">To view more...
+                <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+        </p>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Donation History{% endblock title %}
+{% block content %}
+
+    <div class="container">
+{% if listdonations%}
+    <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action active">
+            Donation History for <b>{{ listdonations.0.fundraiser_id.name }}</b> ${{ listdonations.0.fundraiser_id.goal }} - {{ listdonations.0.fundraiser_id.flag }}
+            <span class="float-right"> Created on: {{ listdonations.0.fundraiser_id.fundraiser_date }}</span>
+        </button>
+
+        {% for listdonation in listdonations %}
+            <button type="button" class="list-group-item list-group-item-action">
+                <b> ${{ listdonation.amount }}</b> by {{ listdonation.customer_id|default_if_none:"Anonymous" }} at {{ listdonation.time }}
+
+            </button>
+        {% endfor %}
+     <a href="{% url "customer:customer_fundraiser" %}" class="btn btn-secondary">Back to My Fundraisers</a>
+       </div>
+  {% else %}
+     <div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action active ">
+             No listdonations available!!
+        </button>
+     <a href="{% url "customer:customer_fundraiser" %}" class="btn btn-secondary">Back to My Fundraisers</a>
+   {% endif %}
+        </div>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Donation{% endblock title %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block content %}
+    <h3>Donating to {{ fundraiser }} - Goal ${{ fundraiser.goal }} </h3>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            {% bootstrap_form form %}
+            <input type="text" class="form-control" placeholder="Name On Card" required onkeypress="return /[a-z]/i.test(event.key)"/>
+            <br>
+            <div class="input-group">
+                <input type="number" class="form-control" id="cardNumber"
+                       placeholder="Valid Card Number" maxlength="16" required autofocus oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                  <span class="fa fa-cc-discover fa-2x ml-2">  <span class="fa fa-cc-visa"></span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+            </div>
+            <div class="col-sm-8">
+                <div class="form-group"><label><span class="hidden-xs">
+                                                    EXPIRATION DATE
+                                                </span></label>
+                    <div class="input-group"><input type="number" placeholder="MM" name=""  min="1" max="12"
+                                                    class="form-control"    required > <input
+                            type="number" placeholder="YY" name="" min="20" max="30" class="form-control" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="cvCode">CV CODE</label>
+                    <input type="password" class="form-control" id="cvCode" placeholder="CVV"
+                           required/></div>
+            </div>
+            <div class="input-group col-lg-12"><input type="number" class="form-control"
+                                                      placeholder="PostalCode"
+                                                      required/></div>
+            <br>
+            <br>
+            <div class="input-group col-lg-12 mt-2"><input type="text" class="form-control "
+                                                           placeholder="Country"
+                                                           required onkeypress="return /[a-z]/i.test(event.key)"/>
+                <div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success" type="submit">Donate</button>
+    </form>
+
+
+{% endblock content %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Fundraisers{% endblock title %}
+{% block content %}
+    <h2 class="text-center">{{ user.first_name }} Fundraisers</h2>
+    <div class="container">
+        <table class="table">
+
+       <tr style="font-size: x-large"><td> <span>Click here to start a fundraiser</span>
+        <span class="float-right">Click here to get fundraiser report</span></td></tr>
+         <tr>
+            <td><a class="btn btn-success text-white" href="{% url 'customer:create_fundraiser' %}">Start
+                a Fundraiser</a>{% if my_fundraisers %}
+            <a class="btn btn-warning float-right ml-2 text-white" href="{% url 'customer:fundraisersPDFlist' %}"
+               onclick="alert('The Report will be sent to your email : {{ my_fundraisers.0.customer_id.email }}')">Email Report</a>
+            {% endif %}</td>
+        </tr>
+
+
+
+        </table>
+
+        {% if my_fundraisers %}
+
+            {% for fundraiser in my_fundraisers %}
+
+                <div class="card mb-3 mt-3">
+                    <div class="row no-gutters">
+
+                        {% if fundraiser.image %}
+                            <img id="imgofcard"   src="{{ fundraiser.image.url }}" alt="Card image cap"
+                                 style="width:175px;height:175px;align-self: center">
+                        {% else %}
+                            <img id="imgofcard"   src='{% static "images/FundraiseUs_Logo.png" %}'
+                                 alt="Card image cap"
+                                 style="width:175px;height:175px;align-self: center">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <a class="btn-warning btn-sm float-right" href="{% url 'customer:customerfundraisers_history' fundraiser.id %}">CHECK HISTORY</a>
+
+                            <p class="card-text"><b>Name: </b> {{ fundraiser.name }}</p>
+                            <p class="card-text"><b>Goal: </b> ${{ fundraiser.goal }}   <b><i>{{ fundraiser.flag | upper }}</i></b> </p>
+                            {% for funds,total in overallfunds_donated.items %}
+                                {% if funds.id == fundraiser.id %}
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-striped " role="progressbar"
+                                             aria-valuenow="bar" style="width:{{ total.1 }}%">
+
+                                        </div>
+
+                                    </div>
+                                    {% if fundraiser.flag == 'Completed' %}
+                                     <span style="color: green;font-weight: bold;" class="float-right">
+                                         Goal Completed  - <small>
+                                                <a  href="{% url "customer:customerfundraisers_close" fundraiser.id %}"  class="card-link"
+                                                        onclick="return confirm('Are you sure you want to close Fundraiser: {{ fundraiser.name }}?')">close the fundraiser</a>
+                                     </small>
+                                     </span>
+
+                                    {% endif %}
+                                    <span style="font-weight:bold; justify-content: center">${{ total.0 }} out of ${{ fundraiser.goal }}</span>
+
+                                {% endif %}
+                            {% endfor %}
+
+
+                            <p class="card-text"><b>Fundraiser date:</b> {{ fundraiser.fundraiser_date }}</p>
+                            <p class="card-text"><b>Description:</b> {{ fundraiser.description }}</p>
+                            <p class="card-text"><b>Cause Type:</b> {{ fundraiser.cause_type }}</p>
+                            <p class="card-text"><b>For: </b>{{ fundraiser.for_whom_type }}</p>
+                            <a class="btn btn-secondary btn-sm float-right mb-4"
+                               href="{% url "customer:customerfundraisers_delete" fundraiser.id %}" class="card-link"
+                               onclick="return confirm('Are you sure you want to delete {{ fundraiser.name }}?')">Delete
+                                Fundraiser</a>
+                            {% if fundraiser.fundraiser_date and fundraiser.flag != 'Closed'%}
+                                <a class="btn btn-primary btn-sm float-right mr-2"
+                                   href="{% url 'customer:customerfundraisers_edit' fundraiser.id %}" class="card-link">Edit
+                                    Fundraiser</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4 class="text-center text-muted"><i>No Fundraisers available in your list.</i></h4>
+        {% endif %}
+    </div>
+{% endblock content %}

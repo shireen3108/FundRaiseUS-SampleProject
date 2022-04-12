@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Tips and Tricks{% endblock title %}
+{% block content %}
+<div style='font-size: x-large;'>
+Need to raise money for an important cause?
+    At FundraiseUs we’ve seen fundraisers meet and beat their goals using our unique fundraising tips. Whether you’re a seasoned fundraiser or starting your first fundraiser, here are some pro fundraising tips for making your fundraiser a success.
+<a href="{% url 'customer:fundraiserslist' %}">Start a fundraiser</a>
+</div>
+    <div style='font-size: large;'>
+    <h3>How to create a successful fundraiser</h3>
+    <li>Begin with a realistic goal</li>
+    <li>Use your title to tell a shareable story</li>
+    <li>Tell a unique story that’s easy to skim</li>
+    <li>Upload high-quality photos and videos</li>
+    <li>Build a community</li>
+    <li>Update your fundraiser consistently</li>
+    </div>
+    <br>
+    Want to know more about us - Check out this <a href="{% url 'customer:aboutus' %}">About FundraiseUs</a>
+{% endblock content %}

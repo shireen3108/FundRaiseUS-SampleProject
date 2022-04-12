@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Donation{% endblock title %}
+{% block content %}
+    <h3>Enter your Donation </h3>
+    <input type="text" class="form-control" placeholder="Name On Card" required/>
+    <div class="container">
+    <div>
+        Email address : {{ donation.customer_id.email }}
+    </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> Payment Details </h3>
+                    </div>
+                    <br>
+                    <br>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Name On Card" required/>
+                            <br>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cardNumber"
+                                       placeholder="Valid Card Number" required autofocus/>
+                                <span class="fab fa-cc-discover"><span
+                                        class="fab fa-cc-visa"></span></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="form-group"><label><span class="hidden-xs">
+                                                    EXPIRATION DATE
+                                                </span></label>
+                                    <div class="input-group"><input type="number" placeholder="MM" name=""
+                                                                    class="form-control" required> <input
+                                            type="number" placeholder="YY" name="" class="form-control" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="cvCode">CV CODE</label>
+                                    <input type="password" class="form-control" id="cvCode" placeholder="CVV"
+                                           required/></div>
+                            </div>
+                            <div class="input-group col-lg-12"><input type="text" class="form-control"
+                                                                      placeholder="PostalCode"
+                                                                      required/></div>
+                            <br>
+                            <br>
+                            <div class="input-group col-lg-12 mt-2"><input type="text" class="form-control "
+                                                                           placeholder="Country"
+                                                                           required/>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#"><span class="badge pull-right"><span
+                            class="glyphicon glyphicon-usd"></span>${{ donation.amount }}</span> Final Payment</a>
+                    </li>
+                </ul>
+                <br/>
+                <a class="btn btn-success btn-lg btn-block"
+                   href="{% url 'customer:customer_payment' donation.id %}" class="card-link"
+                   onclick="return confirm('Are you sure you want to continue ?')">Pay</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

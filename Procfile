@@ -1,0 +1,1 @@
+web: gunicorn JustBid.wsgi --log-file -

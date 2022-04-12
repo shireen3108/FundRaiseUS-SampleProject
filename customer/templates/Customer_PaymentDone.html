@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Successful{% endblock title %}
+{% block content %}
+    <h3><u>Payment Successful </u>!!</h3>
+    <h4>Thank you for your donation for the <b><i> {{ donation.fundraiser_id.name }}</i></b></h4>
+
+     <div class="px-4 py-5"></i>
+                 {% if user.is_authenticated %}
+                        <h5 class="text-uppercase">  NAME: <b>{{donation.customer_id.username}}</b></h5>
+              {% endif %}
+         <h4 class="mt-5 theme-color mb-5"><b>Donation Details</b></h4>
+                    <div class="mb-3">
+                        <hr class="new1">
+                    </div>
+                    <div class="d-flex justify-content-between"> <span class="font-weight-bold">Donation Amount</span> <span >${{ donation.amount }}</span> </div>
+                    <div class="d-flex justify-content-between"> <span class="font-weight-bold">Donation Method</span> <span>  {{ donation.method }}</span> </div>
+                    <div class="d-flex justify-content-between"> <span class="font-weight-bold">Comments</span> <span>   {{ donation.comment }}</span> </div>
+                    <div class="d-flex justify-content-between"> <span class="font-weight-bold">Donation Time</span> <span>{{ donation.time }}</span> </div>
+     </div>
+    <a href="{% url "customer:fundraiserslist" %}" class="btn btn-secondary">Continue Donations</a>
+
+{% endblock %}

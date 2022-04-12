@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <title> FundraiseUs - {% block title %}
+    {% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href='{% static 'css/FundraiseUs.css' %}'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+{#for payment card- start#}
+{#<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">#}
+{#<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>#}
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div id="top">
+<img src='{% static "images/background-banner.jpg" %}' alt="banner" style="height: 1000px;width: 100%">
+</div>
+
+
+
+<nav class="navbar justify-content-center img-responsive " id="navigation" role="navigation">
+    <a class="navbar-brand " href="{% url 'customer:fundraiserslist' %}">
+        <img src="{% static "images/Fundraiser_LogoWhite.png" %}" width="500" class="logoresponsive"/>
+    </a>
+
+<ul class="nav nav-tabs">
+{% if user.is_authenticated %}
+     <li class="nav-item active">
+            <a class="nav-link h5 " href="{% url 'customer:fundraiserslist'  %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+    {% else %}
+     <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'customer:fundraiserslist' %}">Fundraisers </a>
+            </li>
+{% endif %}
+
+            <ul class="nav nav-pills top">
+
+
+                <!-- COLUMNS  for drop down-->
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle h5" id="dropdownCatagory" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        Categories
+                    </a>
+                    <div class="dropdown-menu dropdown-multicol2 ">
+                        <div class="dropdown-col">
+                            <h4 class="dropdown-item">Discover</h4>
+                            <a class="dropdown-item" href="{% url 'customer:fundraiserslist' %}">Fundraisers</a>
+                            <a class="dropdown-item" href="{% url 'customer:create_fundraiser' %}">Start a Fundraiser</a>
+                            <a class="dropdown-item" href="#"> &nbsp;</a>
+                            <a class="dropdown-item" href="#"> &nbsp;</a>
+                        </div>
+                        <div class="dropdown-col">
+                            <h4 class="dropdown-item">Based On</h4>
+                            <a class="dropdown-item" href="{% url 'customer:medical' %}">Medical</a>
+                            <a class="dropdown-item" href="{% url 'customer:non_profit' %}">Non-Profit</a>
+                            <a class="dropdown-item" href="{% url 'customer:education' %}">Education</a>
+                            <a class="dropdown-item" href="{% url 'customer:emergency' %}">Emergency</a>
+                        </div>
+                        <div class="dropdown-col">
+                            <h4 class="dropdown-item">Know More</h4>
+                            <a class="dropdown-item" href="{% url 'customer:aboutus' %}">About Us</a>
+                            <a class="dropdown-item" href="{% url 'customer:contactus' %}">Contact Us</a>
+                            <a class="dropdown-item" href="{% url 'customer:resources' %}">Fundraising Tips</a>
+                            <a class="dropdown-item" href="#"> &nbsp;</a>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+
+        {% if user.is_authenticated %}
+
+
+            <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'customer:contactus' %}">Help</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle h5" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hi {{ user.username }} ,
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'customer:profile_preview' %}">My Profile</a>
+                    <a class="dropdown-item" href="{% url 'customer:customer_fundraiser' %}">My Fundraisers</a>
+                    <a class="dropdown-item" href="{% url 'customer:customer_donationslist' %}">My Donations</a>
+                    <a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %} ">Log Out</a>
+                </div>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'customer:aboutus' %}">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'customer:resources' %}">Resources</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'customer:signup' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link h5" href="{% url 'login' %}">Login<span class="glyphicon glyphicon-log-in"
+                                                                           style="height: 50%"></span></a>
+            </li>
+        {% endif %}
+
+
+    </ul>
+    {#    </div>#}
+</nav>
+
+<div class="backgroundcolors">
+
+    <div class="container">
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+
+
+<footer class="footer mt-auto py-3" style="text-align: center;margin-top: 90px!important">
+    <div class="container">
+    <span> <p>&copy; 2021 FundraiseUs <br>
+  Contact information: <a href="" style="color: white">
+            fundraiseUs@gmail.com</a></p></span>
+        <div class='row'>
+            <div class='col text-center '>
+                <a href="#" class="fa fa-linkedin fa-fw fa-2x"></a>
+                <a href="#" class="fa fa-youtube fa-2x"></a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+

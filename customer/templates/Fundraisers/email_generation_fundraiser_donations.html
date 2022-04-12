@@ -1,0 +1,16 @@
+{% load i18n %}{% autoescape off %}
+{% trans "Hello "%}{{ uname }},<br>
+  {% blocktrans %}
+    You have requested a PDF report to check the history of donations for your fundraisers.
+  Attached is the report.
+  Please feel free to download the report at any time.
+  Thank you.
+    {% endblocktrans %}
+<br>
+    <br>
+ {% trans "Thanks for using our site!" %}
+<br>
+{% trans "Regards," %}<br>
+{% blocktrans %}{{ fr_site_name }}.{% endblocktrans %}
+
+{% endautoescape %}

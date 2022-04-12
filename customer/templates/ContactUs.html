@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Us{% endblock title %}
+{% block content %}
+    <div style='font-size: x-large;'>
+        <a href = {% url 'customer:aboutus' %}><b>FundraiseUS</b></a> is the best place to fundraise, donate for a great cause and spread positivity living in a world of
+        passion.
+        <p><h5>Our contact details:
+
+        Our Office is located at 2 branches in USA</h5>
+        <table class ="table">
+        <tr>
+            <th>Omaha</th>
+            <td>Head quarters of FundraiseUs. est 2020 Jan</td>
+            <td>Address: 7812 Dodge St, Omaha, NE, 68123</td>
+            <td>Phone: 412-324-5213</td>
+            <td>Available Hours : 8am - 5pm</td>
+        </tr>
+        <tr>
+            <th>California</th>
+            <td>Second branch mainly for customer support. est 2021 Jan</td>
+            <td>Address: 5238 Romeo Lane, San Diego, CA, 51247</td>
+            <td>Phone: 123-963-7451</td>
+            <td>Available Hours : 24/7</td>
+        </tr>
+        </table>
+    </p>
+        <div> Send your queries @ FundraiseUs2021@gmail.com</div>
+
+
+    </div>
+{% endblock content %}

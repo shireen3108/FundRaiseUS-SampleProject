@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}My Profile{% endblock title %}
+{% block content %}
+
+<body>
+<div class="row text-center">
+    <h3 style="font-weight: bold">My Profile</h3><br><br>
+</div>
+<dl class="row ">
+  <dt class="col-sm-3">Username :</dt>
+  <dd class="col-sm-9">{{ user.username }}</dd>
+
+  <dt class="col-sm-3"> First Name:</dt>
+  <dd class="col-sm-9">{{ user.first_name }}</dd>
+
+  <dt class="col-sm-3">Last Name:</dt>
+  <dd class="col-sm-9">{{ user.last_name }}</dd>
+
+  <dt class="col-sm-3 text-truncate">Email:</dt>
+  <dd class="col-sm-9">{{ user.email }}</dd>
+
+  <dt class="col-sm-3">Phone:</dt>
+    <dd class="col-sm-9">{{ user.phone_num }}</dd>
+
+ <dt class="col-sm-3">Country:</dt>
+    <dd class="col-sm-9">{{ user.country }}</dd>
+
+ <dt class="col-sm-3"> State:</dt>
+    <dd class="col-sm-9">{{ user.state }}</dd>
+
+     <dt class="col-sm-3">City:</dt>
+    <dd class="col-sm-9">{{ user.city }}</dd>
+
+ <dt class="col-sm-3"> Zip Code:</dt>
+    <dd class="col-sm-9">{{ user.zipcode }}</dd>
+
+</dl>
+
+<div class="col-sm-2">
+    <a class="btn btn-primary" href="{% url 'customer:edit_profile' %}">
+                        Edit My Profile</a>
+</div>
+{% endblock content %}

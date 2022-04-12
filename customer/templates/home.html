@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            Hello {{ user.username }}
+            {% for Fundraiser in fundraiserList %}
+                <div class="card " style="width: 18rem;">
+                <div class="row no-gutters">
+                    {% if Fundraiser.image %}
+                        <img class="card-img-top mt-1" src="{{ Fundraiser.image.url }}" alt="Fundraiser Image">
+                    {% else %}
+                        <img class="card-img-top mt-1" src='{% static "images/Fundraiser_Logo.png" %}'
+                             alt="Fundraiser Image">
+                    {% endif %}
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h4 class="card-text">{{ Fundraiser.name }}</h4>
+                            <p class="card-text">{{ Fundraiser.goal }}</p>
+                            <p class="card-text">{{ Fundraiser.cause_type }}</p>
+                            <p class="card-text">{{ Fundraiser.description }}</p>
+                        </div>
+                    </div>
+                    <a class="button" href="{% url 'customer:customer_donate' Fundraiser.id %}">Donate</a>
+                </div>
+            {% endfor %}
+        {% else %}
+       {% for Fundraiser in fundraiserList %}
+                <div class="card " style="width: 18rem;">
+                <div class="row no-gutters">
+                    {% if Fundraiser.image %}
+                        <img class="card-img-top mt-1" src="{{ Fundraiser.image.url }}" alt="Fundraiser Image">
+                    {% else %}
+                        <img class="card-img-top mt-1" src='{% static "images/Fundraiser_Logo.png" %}'
+                             alt="Fundraiser Image">
+                    {% endif %}
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h4 class="card-text">{{ Fundraiser.name }}</h4>
+                            <p class="card-text">{{ Fundraiser.goal }}</p>
+                            <p class="card-text">{{ Fundraiser.cause_type }}</p>
+                            <p class="card-text">{{ Fundraiser.description }}</p>
+                        </div>
+                    </div>
+                    <a class="button" href="{% url 'customer:customer_donate' Fundraiser.id %}">Donate</a>
+                </div>
+               </div>
+             {% endfor %}
+           {% endif %}
+    </div>
+{% endblock content %}
+

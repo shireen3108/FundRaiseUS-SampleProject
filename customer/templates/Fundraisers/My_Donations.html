@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Donations{% endblock title %}
+{% block content %}
+
+    {% if donationslist %}
+<div class="list-group">
+   <h2><u class="text-uppercase"> DONATIONS by '{{user}}'</u></h2>
+        {% for donation in donationslist %}
+
+ <button type="button" class="list-group-item list-group-item-action ">
+                    <li><a href="#{{ donation.id }}"  data-toggle="collapse">{{ donation.fundraiser_id.name }}</a></li>
+                    <div id="{{donation.id}}" class="collapse">
+                        <div class="d-flex justify-content-between"><span
+                                class="font-weight-bold">Donation Amount</span> <span>${{ donation.amount }}</span></div>
+                        <div class="d-flex justify-content-between"><span
+                                class="font-weight-bold">Donation Method</span> <span>  {{ donation.method }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between"><span class="font-weight-bold">Comments</span>
+                            <span>   {{ donation.comment }}</span></div>
+                        <div class="d-flex justify-content-between"><span class="font-weight-bold">Donation Time</span>
+                            <span>{{ donation.time }}</span></div>
+                         <a class="btn btn-info btn-sm float-right" href="{% url 'customer:customer_donate' donation.fundraiser_id.id %}">Donate again</a>
+                    </div>
+
+  </button>
+        {% endfor %}
+
+           </div>
+    {% else %}
+        You have no donations yet.
+        Donate Now?
+    {% endif %}
+{% endblock %}

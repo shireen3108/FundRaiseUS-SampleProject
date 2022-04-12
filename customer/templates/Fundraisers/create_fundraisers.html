@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Fundraiser{% endblock title %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block content %}
+    {{ form.media }}
+    <h1>Create a Fundraiser</h1>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="save btn btn-primary">Create</button>
+         <a href="{% url "customer:customer_fundraiser" %}" class="btn btn-secondary">Cancel</a>
+    {{ form.non_field_errors }}
+    </form>
+{% endblock %}
